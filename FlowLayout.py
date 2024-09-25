@@ -1,3 +1,8 @@
+# Copyright (C) 2013 Riverbank Computing Limited.
+# Copyright (C) 2022 The Qt Company Ltd.
+# SPDX-License-Identifier: LicenseRef-Qt-Commercial OR BSD-3-Clause
+# from https://doc.qt.io/qtforpython-6/examples/example_widgets_layouts_flowlayout.html
+
 from PySide6.QtCore import Qt, QMargins, QPoint, QRect, QSize
 from PySide6.QtWidgets import QLayout, QSizePolicy
 
