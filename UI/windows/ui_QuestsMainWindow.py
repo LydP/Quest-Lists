@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'QuestsMainWindowQAplVO.ui'
+## Form generated from reading UI file 'QuestsMainWindowgxNZQO.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.0
 ##
@@ -16,9 +16,10 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QIcon, QImage, QKeySequence, QLinearGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
-from PySide6.QtWidgets import (QApplication, QHBoxLayout, QMainWindow, QMenu,
-    QMenuBar, QPushButton, QScrollArea, QSizePolicy,
-    QSpacerItem, QStatusBar, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QGroupBox, QHBoxLayout, QMainWindow,
+    QMenu, QMenuBar, QPushButton, QScrollArea,
+    QSizePolicy, QSpacerItem, QSplitter, QStatusBar,
+    QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -41,21 +42,27 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout_2 = QHBoxLayout(self.centralwidget)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.verticalLayout = QVBoxLayout()
+        self.splitter = QSplitter(self.centralwidget)
+        self.splitter.setObjectName(u"splitter")
+        self.splitter.setOrientation(Qt.Orientation.Horizontal)
+        self.widget = QWidget(self.splitter)
+        self.widget.setObjectName(u"widget")
+        self.verticalLayout = QVBoxLayout(self.widget)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.scrollArea = QScrollArea(self.centralwidget)
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.scrollArea = QScrollArea(self.widget)
         self.scrollArea.setObjectName(u"scrollArea")
         self.scrollArea.setWidgetResizable(True)
         self.gameIconsScrollArea = QWidget()
         self.gameIconsScrollArea.setObjectName(u"gameIconsScrollArea")
-        self.gameIconsScrollArea.setGeometry(QRect(0, 0, 778, 492))
+        self.gameIconsScrollArea.setGeometry(QRect(0, 0, 469, 492))
         self.scrollArea.setWidget(self.gameIconsScrollArea)
 
         self.verticalLayout.addWidget(self.scrollArea)
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.addQuestsPushButton = QPushButton(self.centralwidget)
+        self.addQuestsPushButton = QPushButton(self.widget)
         self.addQuestsPushButton.setObjectName(u"addQuestsPushButton")
         self.addQuestsPushButton.setEnabled(True)
         icon = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.ListAdd))
@@ -63,7 +70,7 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addWidget(self.addQuestsPushButton)
 
-        self.removeQuestsPushButton = QPushButton(self.centralwidget)
+        self.removeQuestsPushButton = QPushButton(self.widget)
         self.removeQuestsPushButton.setObjectName(u"removeQuestsPushButton")
         icon1 = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.ListRemove))
         self.removeQuestsPushButton.setIcon(icon1)
@@ -77,8 +84,16 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout)
 
+        self.splitter.addWidget(self.widget)
+        self.questsMetadata = QGroupBox(self.splitter)
+        self.questsMetadata.setObjectName(u"questsMetadata")
+        self.questsMetadata.setAutoFillBackground(False)
+        self.questsMetadata.setStyleSheet(u"QGroupBox {\n"
+"	border-style: none;\n"
+"}")
+        self.splitter.addWidget(self.questsMetadata)
 
-        self.horizontalLayout_2.addLayout(self.verticalLayout)
+        self.horizontalLayout_2.addWidget(self.splitter)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
@@ -124,6 +139,7 @@ class Ui_MainWindow(object):
         self.removeQuestsPushButton.setToolTip(QCoreApplication.translate("MainWindow", u"Delete selected quest list", None))
 #endif // QT_CONFIG(tooltip)
         self.removeQuestsPushButton.setText("")
+        self.questsMetadata.setTitle("")
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.menuExport.setTitle(QCoreApplication.translate("MainWindow", u"Export...", None))
         self.menuEdit.setTitle(QCoreApplication.translate("MainWindow", u"Edit", None))
