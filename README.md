@@ -9,7 +9,7 @@ complete if you go too far down a certain path. So, to more elegantly handle my 
 fold, and to provide some simple QOL improvements, I've decided to make this simple application.
 
 # Technical
-I'm creating the GUI using Qt Designer and PySide6. I'll store all data associated with the quests in SQLite DB 
+I'm creating the GUI using Qt Designer and PySide6. I'll store all data associated with the quests in SQLite3 
 files, and interface with them in the application using SQLite3. So far, I'm fairly confident that writing the 
 necessary queries and creating the backend logic will be straightforward. My main hurdle right now is learning Qt and 
 PySide.
@@ -23,3 +23,5 @@ Otherwise, since plans change, this project is too young for me to go into furth
 * Basic statistics (quests completed, quests remaining, percent complete, etc.)
 * Prerequisite tracking 
 * Mutually exclusive quest tracking 
+* Quest contingency tracking
+* Collectibles tracking
