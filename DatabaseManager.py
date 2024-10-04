@@ -11,7 +11,16 @@ class DatabaseManager:
 
         self.query = QtSql.QSqlQuery()
 
-    def add_game(self):
+    def add_new_game(self):
+        """
+        Adds a new placeholder title and icon path to the Games table. The placeholder title will be 'New Game' or
+        'New Game <n>', where <n> is the next available integer in the sequence of existing game titles. If 'New
+        Game' already exists, the next available title will be 'New Game 1', 'New Game 2', and so on. The method
+        ensures that any gaps in the sequence are filled (e.g., if 'New Game 2' and 'New Game 4' exist, the next title
+        will be 'New Game 3').
+
+        :return: None
+        """
         placeholder_title = 'New Game'
         placeholder_icon = 'resources/test_img.jpg'
 
@@ -31,10 +40,12 @@ class DatabaseManager:
 
         # place iteration values in a list
         new_games = []
+        # NB: next() always returns True at least once, even when the query returns nothing and the table from which it
+        # is querying is empty
         while self.query.next():
             new_games.append(self.query.value(0))
 
-        # find the largest number from a series of consecutive iteration values, increment, and append to
+        # find the largest number from a sequence of consecutive iteration values, increment, and append to
         # placeholder_title
         new_games = sorted(new_games)
         if new_games and (min(new_games) == 0):
@@ -46,7 +57,7 @@ class DatabaseManager:
             if (i == (len(new_games) - 1)) and (i == new_games[i]):
                 placeholder_title = f'{placeholder_title} {i + 1}'
 
-        # add placeholder_title and icon to Games table
+        # add placeholder_title and placeholder_icon to Games table
         self.query.prepare("""
         INSERT INTO Games (game_title, game_cover_path)
         VALUES (:game_title, :game_icon)
