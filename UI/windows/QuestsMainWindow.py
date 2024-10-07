@@ -2,8 +2,9 @@ from PySide6.QtWidgets import QMainWindow, QApplication, QWidget, QToolButton
 from PySide6.QtGui import QIcon
 from PySide6.QtCore import Qt, QSize
 
+from DatabaseManager import DatabaseManager
 from FlowLayout import FlowLayout
-from ui_QuestsMainWindow import Ui_MainWindow
+from UI.windows.ui_QuestsMainWindow import Ui_MainWindow
 
 
 class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
@@ -16,16 +17,28 @@ class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
         self.addQuestsPushButton.clicked.connect(self.add_quests_btn_clicked)
         self.removeQuestsPushButton.clicked.connect(self.remove_quests_btn_clicked)
 
+        self.database = DatabaseManager()
+
+        # populate scrollArea with the games already in the database
+        game_titles_icons = self.database.get_all_games()
+        for game in game_titles_icons:
+            self.generate_game_icon(game[0], game[1])
+
     def remove_quests_btn_clicked(self):
         # TODO remove quest list corresponding to highlighted game icon
         pass
 
     def add_quests_btn_clicked(self):
+        title, image_path = self.database.add_new_game()
+        self.generate_game_icon(title, image_path)
+
+    def generate_game_icon(self, title, image):
         tool_button = QToolButton(self)
-        tool_button.setIcon(QIcon("resources/test_img.jpg"))
+        tool_button.setIcon(QIcon(image))
         tool_button.setIconSize(QSize(100, 150))  # Set the icon size
-        tool_button.setText("New Quests List")  # Set the label text
+        tool_button.setText(title)  # Set the label text
         tool_button.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)  # Text under the icon
+        tool_button.setObjectName(title)
 
         palette = QApplication.palette()
         highlight_color = palette.highlight().color().name()
