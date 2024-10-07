@@ -8,4 +8,7 @@ app = QApplication(sys.argv)
 
 window = QuestsMainWindow()
 window.show()
-app.exec()
+
+app.aboutToQuit.connect(window.quit_app)
+
+sys.exit(app.exec())

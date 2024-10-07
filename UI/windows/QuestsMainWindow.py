@@ -48,3 +48,6 @@ class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
 
         self.layout.setSpacing(tool_button.width() / 2)
         self.layout.addWidget(tool_button)
+
+    def quit_app(self):
+        self.database.close_database()
