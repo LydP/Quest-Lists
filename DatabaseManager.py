@@ -93,3 +93,11 @@ class DatabaseManager:
             games_icons.append((self.query.value(0), self.query.value(1)))
 
         return games_icons
+
+    def close_database(self):
+        """
+        Closes the connection to the SQLite database
+
+        :return: None
+        """
+        self.database.close()
