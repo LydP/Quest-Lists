@@ -1,5 +1,6 @@
 from PySide6 import QtSql
 
+
 # TODO error handling
 class DatabaseManager:
     def __init__(self):
@@ -19,7 +20,11 @@ class DatabaseManager:
         ensures that any gaps in the sequence are filled (e.g., if 'New Game 2' and 'New Game 4' exist, the next title
         will be 'New Game 3').
 
-        :return: None
+        :return:
+        placeholder_title: str
+            The placeholder title added to the database
+        placeholder_icon: str
+            The path to the placeholder icon added to the database
         """
         placeholder_title = 'New Game'
         placeholder_icon = 'resources/test_img.jpg'
@@ -65,3 +70,26 @@ class DatabaseManager:
         self.query.bindValue(':game_title', placeholder_title)
         self.query.bindValue(':game_icon', placeholder_icon)
         self.query.exec()
+
+        return placeholder_title, placeholder_icon
+
+    def get_all_games(self):
+        """
+        Queries the Games table for the game title and the path to its cover image and places them in a list of tuples.
+
+        :return: A list of tuples containing the game titles and the paths to game icon images:
+        [('Game Title', '/path/to/cover.jpg')]
+        """
+        self.query.prepare("""
+        SELECT 
+            game_title,
+            game_cover_path
+        FROM Games            
+        """)
+        self.query.exec()
+
+        games_icons = []
+        while self.query.next():
+            games_icons.append((self.query.value(0), self.query.value(1)))
+
+        return games_icons
