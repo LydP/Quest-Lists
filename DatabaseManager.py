@@ -13,22 +13,39 @@ class DatabaseManager:
         self.query = QtSql.QSqlQuery()
 
     def count_quests(self, title):
+        # TODO need to test this when database has some stuff in it
         """
-        Creates a nested dictionary that organizes quest categories and their corresponding number of quests for a
-        specified game and its DLCs.
+        Creates a nested dictionary that organizes quest categories and their corresponding total number of quests
+        and number of completed quests for a specified game and its DLCs.
 
         :param title: the game's title as a string
-        :return: A dictionary of the form {Game: {Category: quest count}, DLC: {Category: quest count}}
+        :return: A dictionary of the form
+        {Game:
+            {Category:
+                (quests completed, quest count)
+            },
+        DLC:
+            {Category:
+                (quests completed, quest count)
+            }
+        }
         """
         # query database for quest categories, any DLCs associated with the game, and the number of quests per category
-        self.query.preare("""
+        self.query.prepare("""
         SELECT
             qc.category_name,
             CASE
-                WHEN DLCs.DLC_ID IS NULL THEN 'base'
+                WHEN DLCs.DLC_ID IS NULL THEN :game_title
                 ELSE DLC_name
             END AS DLC_name,
-            COUNT(q.quest_ID) AS quest_count
+            CASE
+                WHEN DLCs.DLC_ID IS NULL THEN COUNT(q.quest_ID)
+                ELSE COUNT(DLCq.quest_ID)
+            END AS quest_counts,
+            CASE
+                WHEN DLCs.DLC_ID IS NULL THEN SUM(q.completion_state)
+                ELSE SUM(DLCq.completion_state)
+            END AS quests_completed
         FROM Quests q
             INNER JOIN Games g ON g.game_ID = q.game_ID
             INNER JOIN DLCs ON DLCs.game_ID = g.game_ID
@@ -47,11 +64,12 @@ class DatabaseManager:
             category_name = self.query.value(0)
             dlc_name = self.query.value(1)
             quest_count = self.query.value(2)
+            quests_completed = self.query.value(3)
 
             if dlc_name not in quest_counts:
                 quest_counts[dlc_name] = {}
 
-            quest_counts[dlc_name][category_name] = quest_count
+            quest_counts[dlc_name][category_name] = (quests_completed, quest_count)
 
         return quest_counts
 
