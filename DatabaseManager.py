@@ -12,6 +12,49 @@ class DatabaseManager:
 
         self.query = QtSql.QSqlQuery()
 
+    def count_quests(self, title):
+        """
+        Creates a nested dictionary that organizes quest categories and their corresponding number of quests for a
+        specified game and its DLCs.
+
+        :param title: the game's title as a string
+        :return: A dictionary of the form {Game: {Category: quest count}, DLC: {Category: quest count}}
+        """
+        # query database for quest categories, any DLCs associated with the game, and the number of quests per category
+        self.query.preare("""
+        SELECT
+            qc.category_name,
+            CASE
+                WHEN DLCs.DLC_ID IS NULL THEN 'base'
+                ELSE DLC_name
+            END AS DLC_name,
+            COUNT(q.quest_ID) AS quest_count
+        FROM Quests q
+            INNER JOIN Games g ON g.game_ID = q.game_ID
+            INNER JOIN DLCs ON DLCs.game_ID = g.game_ID
+            INNER JOIN QuestCategories qc ON qc.category_ID = q.category_ID
+            INNER JOIN DLCQuests DLCq ON DLCq.DLC_ID = DLCs.DLC_ID
+                AND DLCq.category_ID = qc.category_ID
+        WHERE g.game_title = :game_title
+        GROUP BY DLC_name, category_name
+        """)
+        self.query.bindValue(':game_title', title)
+        self.query.exec()
+
+        # store quest counts in nested dictionary
+        quest_counts = {}
+        while self.query.next():
+            category_name = self.query.value(0)
+            dlc_name = self.query.value(1)
+            quest_count = self.query.value(2)
+
+            if dlc_name not in quest_counts:
+                quest_counts[dlc_name] = {}
+
+            quest_counts[dlc_name][category_name] = quest_count
+
+        return quest_counts
+
     def add_new_game(self):
         """
         Adds a new placeholder title and icon path to the Games table. The placeholder title will be 'New Game' or
@@ -84,7 +127,8 @@ class DatabaseManager:
         SELECT 
             game_title,
             game_cover_path
-        FROM Games            
+        FROM Games
+        ORDER BY game_title       
         """)
         self.query.exec()
 
