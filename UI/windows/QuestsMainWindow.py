@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QMainWindow, QApplication, QWidget, QToolButton, QLabel
-from PySide6.QtGui import QIcon, QPixmap
+from PySide6.QtGui import QIcon, QPixmap, QAction
 from PySide6.QtCore import Qt, QSize
 
 from DatabaseManager import DatabaseManager
@@ -14,10 +14,11 @@ class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
 
         self.layout = FlowLayout(self.gameIconsScrollArea)
 
-        self.addQuestsPushButton.clicked.connect(self.add_quests_btn_clicked)
-        self.removeQuestsPushButton.clicked.connect(self.remove_quests_btn_clicked)
-
         self.database = DatabaseManager()
+
+        # define QActions
+        self.actionAdd_Game.triggered.connect(self.action_add_game)
+        self.actionExit.triggered.connect(self.quit_app)
 
         # populate scrollArea with the games already in the database
         game_titles_icons = self.database.get_all_games()
@@ -33,13 +34,18 @@ class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
             # populate metadata panel with metadata from first item in game_titles_icons on startup
             self.populate_metadata(game_titles_icons[0][0], game_titles_icons[0][1])
 
-    def remove_quests_btn_clicked(self):
+    def action_delete_game(self):
         # TODO remove all data corresponding to highlighted game icon
         pass
 
-    def add_quests_btn_clicked(self):
+    def action_add_game(self):
         title, image_path = self.database.add_new_game()
         self.generate_game_icon(title, image_path)
+
+        # necessary for when adding a new game to empty database
+        self.questsMetadataStackedWidget.setCurrentIndex(1)
+
+        self.populate_metadata(title, image_path)
 
     def generate_game_icon(self, title, image):
         tool_button = QToolButton(self)
@@ -116,3 +122,5 @@ class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
 
     def quit_app(self):
         self.database.close_database()
+        QApplication.instance().aboutToQuit.disconnect(self.quit_app)
+        QApplication.instance().quit()
