@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'QuestsMainWindowXupUTP.ui'
+## Form generated from reading UI file 'QuestsMainWindowdUIeAS.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.0
 ##
@@ -18,9 +18,8 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QTransform)
 from PySide6.QtWidgets import (QApplication, QGridLayout, QGroupBox, QHBoxLayout,
     QLabel, QMainWindow, QMenu, QMenuBar,
-    QPushButton, QScrollArea, QSizePolicy, QSpacerItem,
-    QSplitter, QStackedWidget, QStatusBar, QVBoxLayout,
-    QWidget)
+    QScrollArea, QSizePolicy, QSplitter, QStackedWidget,
+    QStatusBar, QToolBar, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -39,6 +38,10 @@ class Ui_MainWindow(object):
         self.actionExport_all.setObjectName(u"actionExport_all")
         self.actionExport_selected = QAction(MainWindow)
         self.actionExport_selected.setObjectName(u"actionExport_selected")
+        self.actionAdd_Game = QAction(MainWindow)
+        self.actionAdd_Game.setObjectName(u"actionAdd_Game")
+        self.actionExit = QAction(MainWindow)
+        self.actionExit.setObjectName(u"actionExit")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout_2 = QVBoxLayout(self.centralwidget)
@@ -56,32 +59,13 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.gameIconsScrollArea = QWidget()
         self.gameIconsScrollArea.setObjectName(u"gameIconsScrollArea")
-        self.gameIconsScrollArea.setGeometry(QRect(0, 0, 406, 492))
+        self.gameIconsScrollArea.setGeometry(QRect(0, 0, 418, 490))
         self.scrollArea.setWidget(self.gameIconsScrollArea)
 
         self.verticalLayout.addWidget(self.scrollArea)
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.addQuestsPushButton = QPushButton(self.layoutWidget)
-        self.addQuestsPushButton.setObjectName(u"addQuestsPushButton")
-        self.addQuestsPushButton.setEnabled(True)
-        icon = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.ListAdd))
-        self.addQuestsPushButton.setIcon(icon)
-
-        self.horizontalLayout.addWidget(self.addQuestsPushButton)
-
-        self.removeQuestsPushButton = QPushButton(self.layoutWidget)
-        self.removeQuestsPushButton.setObjectName(u"removeQuestsPushButton")
-        icon1 = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.ListRemove))
-        self.removeQuestsPushButton.setIcon(icon1)
-
-        self.horizontalLayout.addWidget(self.removeQuestsPushButton)
-
-        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout.addItem(self.horizontalSpacer)
-
 
         self.verticalLayout.addLayout(self.horizontalLayout)
 
@@ -137,14 +121,20 @@ class Ui_MainWindow(object):
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
+        self.toolBar = QToolBar(MainWindow)
+        self.toolBar.setObjectName(u"toolBar")
+        MainWindow.addToolBar(Qt.ToolBarArea.TopToolBarArea, self.toolBar)
 
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuEdit.menuAction())
+        self.menuFile.addAction(self.actionAdd_Game)
         self.menuFile.addAction(self.menuExport.menuAction())
+        self.menuFile.addAction(self.actionExit)
         self.menuExport.addAction(self.actionExport_all)
         self.menuExport.addAction(self.actionExport_selected)
         self.menuEdit.addAction(self.actionAdd_new_quest_list_2)
         self.menuEdit.addAction(self.actionDelete_selected_quest_list_2)
+        self.toolBar.addAction(self.actionAdd_Game)
 
         self.retranslateUi(MainWindow)
 
@@ -162,19 +152,14 @@ class Ui_MainWindow(object):
         self.actionDelete_selected_quest_list_2.setText(QCoreApplication.translate("MainWindow", u"Delete selected quest list", None))
         self.actionExport_all.setText(QCoreApplication.translate("MainWindow", u"Export all...", None))
         self.actionExport_selected.setText(QCoreApplication.translate("MainWindow", u"Export selected...", None))
-#if QT_CONFIG(tooltip)
-        self.addQuestsPushButton.setToolTip(QCoreApplication.translate("MainWindow", u"Add a quest list", None))
-#endif // QT_CONFIG(tooltip)
-        self.addQuestsPushButton.setText("")
-#if QT_CONFIG(tooltip)
-        self.removeQuestsPushButton.setToolTip(QCoreApplication.translate("MainWindow", u"Delete selected quest list", None))
-#endif // QT_CONFIG(tooltip)
-        self.removeQuestsPushButton.setText("")
+        self.actionAdd_Game.setText(QCoreApplication.translate("MainWindow", u"Add Game", None))
+        self.actionExit.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
         self.questsMetadata.setTitle("")
         self.noGamesLabel.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-style:italic;\">(no games)</span></p></body></html>", None))
         self.gameCoverImage.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">TextLabel</p></body></html>", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.menuExport.setTitle(QCoreApplication.translate("MainWindow", u"Export...", None))
         self.menuEdit.setTitle(QCoreApplication.translate("MainWindow", u"Edit", None))
+        self.toolBar.setWindowTitle(QCoreApplication.translate("MainWindow", u"toolBar", None))
     # retranslateUi
 

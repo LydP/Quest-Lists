@@ -32,58 +32,15 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>406</width>
-             <height>492</height>
+             <width>418</width>
+             <height>490</height>
             </rect>
            </property>
           </widget>
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <widget class="QPushButton" name="addQuestsPushButton">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="toolTip">
-             <string>Add a quest list</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset theme="QIcon::ThemeIcon::ListAdd"/>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="removeQuestsPushButton">
-            <property name="toolTip">
-             <string>Delete selected quest list</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset theme="QIcon::ThemeIcon::ListRemove"/>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer">
-            <property name="orientation">
-             <enum>Qt::Orientation::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
+         <layout class="QHBoxLayout" name="horizontalLayout"/>
         </item>
        </layout>
       </widget>
@@ -155,7 +112,9 @@
      <addaction name="actionExport_all"/>
      <addaction name="actionExport_selected"/>
     </widget>
+    <addaction name="actionAdd_Game"/>
     <addaction name="menuExport"/>
+    <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
     <property name="title">
@@ -168,6 +127,18 @@
    <addaction name="menuEdit"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionAdd_Game"/>
+  </widget>
   <action name="actionAdd_new_quest_list">
    <property name="text">
     <string>Add new quest list</string>
@@ -196,6 +167,16 @@
   <action name="actionExport_selected">
    <property name="text">
     <string>Export selected...</string>
+   </property>
+  </action>
+  <action name="actionAdd_Game">
+   <property name="text">
+    <string>Add Game</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
    </property>
   </action>
  </widget>
