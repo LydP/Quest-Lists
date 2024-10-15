@@ -68,7 +68,7 @@ class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
         # TODO need to test this when database has some stuff in it
         # TODO this is convoluted. clean it up
         # add game cover image to metadata panel
-        icon = QPixmap(image)
+        icon = QPixmap(image).scaled(self.gameCoverImage.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
         self.gameCoverImage.setPixmap(icon)
 
         quest_counts = self.database.count_quests(title)

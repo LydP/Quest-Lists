@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'QuestsMainWindowdUIeAS.ui'
+## Form generated from reading UI file 'QuestsMainWindowjXPdms.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.0
 ##
@@ -18,8 +18,9 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QTransform)
 from PySide6.QtWidgets import (QApplication, QGridLayout, QGroupBox, QHBoxLayout,
     QLabel, QMainWindow, QMenu, QMenuBar,
-    QScrollArea, QSizePolicy, QSplitter, QStackedWidget,
-    QStatusBar, QToolBar, QVBoxLayout, QWidget)
+    QScrollArea, QSizePolicy, QSpacerItem, QSplitter,
+    QStackedWidget, QStatusBar, QToolBar, QVBoxLayout,
+    QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -44,34 +45,29 @@ class Ui_MainWindow(object):
         self.actionExit.setObjectName(u"actionExit")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.verticalLayout_2 = QVBoxLayout(self.centralwidget)
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.horizontalLayout = QHBoxLayout(self.centralwidget)
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.splitter = QSplitter(self.centralwidget)
         self.splitter.setObjectName(u"splitter")
         self.splitter.setOrientation(Qt.Orientation.Horizontal)
-        self.layoutWidget = QWidget(self.splitter)
-        self.layoutWidget.setObjectName(u"layoutWidget")
-        self.verticalLayout = QVBoxLayout(self.layoutWidget)
-        self.verticalLayout.setObjectName(u"verticalLayout")
-        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
-        self.scrollArea = QScrollArea(self.layoutWidget)
+        self.scrollArea = QScrollArea(self.splitter)
         self.scrollArea.setObjectName(u"scrollArea")
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.scrollArea.sizePolicy().hasHeightForWidth())
+        self.scrollArea.setSizePolicy(sizePolicy)
         self.scrollArea.setWidgetResizable(True)
         self.gameIconsScrollArea = QWidget()
         self.gameIconsScrollArea.setObjectName(u"gameIconsScrollArea")
-        self.gameIconsScrollArea.setGeometry(QRect(0, 0, 418, 490))
+        self.gameIconsScrollArea.setGeometry(QRect(0, 0, 116, 500))
         self.scrollArea.setWidget(self.gameIconsScrollArea)
-
-        self.verticalLayout.addWidget(self.scrollArea)
-
-        self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-
-        self.verticalLayout.addLayout(self.horizontalLayout)
-
-        self.splitter.addWidget(self.layoutWidget)
+        self.splitter.addWidget(self.scrollArea)
         self.questsMetadata = QGroupBox(self.splitter)
         self.questsMetadata.setObjectName(u"questsMetadata")
+        sizePolicy.setHeightForWidth(self.questsMetadata.sizePolicy().hasHeightForWidth())
+        self.questsMetadata.setSizePolicy(sizePolicy)
+        self.questsMetadata.setMinimumSize(QSize(0, 0))
         self.questsMetadata.setAutoFillBackground(False)
         self.questsMetadata.setStyleSheet(u"QGroupBox {\n"
 "	border-style: none;\n"
@@ -80,6 +76,11 @@ class Ui_MainWindow(object):
         self.gridLayout.setObjectName(u"gridLayout")
         self.questsMetadataStackedWidget = QStackedWidget(self.questsMetadata)
         self.questsMetadataStackedWidget.setObjectName(u"questsMetadataStackedWidget")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Preferred)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.questsMetadataStackedWidget.sizePolicy().hasHeightForWidth())
+        self.questsMetadataStackedWidget.setSizePolicy(sizePolicy1)
         self.noGamesPage = QWidget()
         self.noGamesPage.setObjectName(u"noGamesPage")
         self.verticalLayout_3 = QVBoxLayout(self.noGamesPage)
@@ -92,12 +93,30 @@ class Ui_MainWindow(object):
         self.questsMetadataStackedWidget.addWidget(self.noGamesPage)
         self.page_2 = QWidget()
         self.page_2.setObjectName(u"page_2")
+        sizePolicy1.setHeightForWidth(self.page_2.sizePolicy().hasHeightForWidth())
+        self.page_2.setSizePolicy(sizePolicy1)
         self.verticalLayout_4 = QVBoxLayout(self.page_2)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.gameCoverImage = QLabel(self.page_2)
         self.gameCoverImage.setObjectName(u"gameCoverImage")
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.gameCoverImage.sizePolicy().hasHeightForWidth())
+        self.gameCoverImage.setSizePolicy(sizePolicy2)
+        self.gameCoverImage.setMinimumSize(QSize(0, 0))
+        self.gameCoverImage.setMaximumSize(QSize(200, 300))
 
-        self.verticalLayout_4.addWidget(self.gameCoverImage)
+        self.horizontalLayout_2.addWidget(self.gameCoverImage)
+
+
+        self.verticalLayout_4.addLayout(self.horizontalLayout_2)
+
+        self.verticalSpacer = QSpacerItem(20, 227, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.verticalLayout_4.addItem(self.verticalSpacer)
 
         self.questsMetadataStackedWidget.addWidget(self.page_2)
 
@@ -105,7 +124,7 @@ class Ui_MainWindow(object):
 
         self.splitter.addWidget(self.questsMetadata)
 
-        self.verticalLayout_2.addWidget(self.splitter)
+        self.horizontalLayout.addWidget(self.splitter)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
@@ -132,8 +151,6 @@ class Ui_MainWindow(object):
         self.menuFile.addAction(self.actionExit)
         self.menuExport.addAction(self.actionExport_all)
         self.menuExport.addAction(self.actionExport_selected)
-        self.menuEdit.addAction(self.actionAdd_new_quest_list_2)
-        self.menuEdit.addAction(self.actionDelete_selected_quest_list_2)
         self.toolBar.addAction(self.actionAdd_Game)
 
         self.retranslateUi(MainWindow)
