@@ -36,26 +36,26 @@ class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
             self.questsMetadataStackedWidget.setCurrentIndex(1)
             # add games to scrollArea
             for game in game_titles_icons:
-                self.generate_game_icon(game[0], game[1])
+                self.generate_game_icon(game[0], game[1], game[2])
 
             # populate metadata panel with metadata from first item in game_titles_icons on startup
-            self.populate_metadata(game_titles_icons[0][0], game_titles_icons[0][1])
+            self.icon_group.button(game_titles_icons[0][2]).click()
 
     def action_delete_game(self):
         # TODO remove all data corresponding to highlighted game icon
         pass
 
     def action_add_game(self):
-        title, image_path = self.database.add_new_game()
-        self.generate_game_icon(title, image_path)
+        title, image_path, game_id = self.database.add_new_game()
+        self.generate_game_icon(title, image_path, game_id)
 
         # necessary for when adding a new game to empty database
         self.gameCoverImage.setFixedSize(200, 300)
         self.questsMetadataStackedWidget.setCurrentIndex(1)
 
-        self.populate_metadata(title, image_path)
+        self.icon_group.buttons()[-1].click()
 
-    def generate_game_icon(self, title, image):
+    def generate_game_icon(self, title, image, game_id):
         tool_button = QToolButton(self)
         tool_button.setIcon(QIcon(image))
         tool_button.setIconSize(QSize(100, 150))  # Set the icon size
@@ -66,6 +66,7 @@ class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
         tool_button.setCheckable(True)
 
         self.icon_group.addButton(tool_button)
+        self.icon_group.setId(tool_button, game_id)
 
         tool_button.clicked.connect(self.game_icon_clicked)
 

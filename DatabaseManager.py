@@ -86,6 +86,8 @@ class DatabaseManager:
             The placeholder title added to the database
         placeholder_icon: str
             The path to the placeholder icon added to the database
+        primary_key: int
+            The newly added game's primary key from the table
         """
         placeholder_title = 'New Game'
         placeholder_icon = 'resources/test_img.jpg'
@@ -132,17 +134,21 @@ class DatabaseManager:
         self.query.bindValue(':game_icon', placeholder_icon)
         self.query.exec()
 
-        return placeholder_title, placeholder_icon
+        primary_key = self.query.lastInsertId()
+
+        return placeholder_title, placeholder_icon, primary_key
 
     def get_all_games(self):
         """
-        Queries the Games table for the game title and the path to its cover image and places them in a list of tuples.
+        Queries the Games table for the game title, and the path to its cover image, and its primary key and places
+        them in a list of tuples.
 
-        :return: A list of tuples containing the game titles and the paths to game icon images:
-        [('Game Title', '/path/to/cover.jpg')]
+        :return: A list of tuples containing the game titles, the paths to game icon images, and the game primary keys:
+        [('Game Title', '/path/to/cover.jpg', game_id)]
         """
         self.query.prepare("""
         SELECT 
+            game_ID,
             game_title,
             game_cover_path
         FROM Games
@@ -152,7 +158,7 @@ class DatabaseManager:
 
         games_icons = []
         while self.query.next():
-            games_icons.append((self.query.value(0), self.query.value(1)))
+            games_icons.append((self.query.value(1), self.query.value(2), self.query.value(0)))
 
         return games_icons
 
