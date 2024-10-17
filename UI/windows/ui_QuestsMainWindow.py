@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'QuestsMainWindowjXPdms.ui'
+## Form generated from reading UI file 'QuestsMainWindoweWqPoV.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.0
 ##
@@ -16,11 +16,10 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QIcon, QImage, QKeySequence, QLinearGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
-from PySide6.QtWidgets import (QApplication, QGridLayout, QGroupBox, QHBoxLayout,
-    QLabel, QMainWindow, QMenu, QMenuBar,
-    QScrollArea, QSizePolicy, QSpacerItem, QSplitter,
-    QStackedWidget, QStatusBar, QToolBar, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QMainWindow,
+    QMenu, QMenuBar, QScrollArea, QSizePolicy,
+    QSpacerItem, QSplitter, QStackedWidget, QStatusBar,
+    QToolBar, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -60,69 +59,56 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.gameIconsScrollArea = QWidget()
         self.gameIconsScrollArea.setObjectName(u"gameIconsScrollArea")
-        self.gameIconsScrollArea.setGeometry(QRect(0, 0, 116, 500))
+        self.gameIconsScrollArea.setGeometry(QRect(0, 0, 54, 500))
         self.scrollArea.setWidget(self.gameIconsScrollArea)
         self.splitter.addWidget(self.scrollArea)
-        self.questsMetadata = QGroupBox(self.splitter)
-        self.questsMetadata.setObjectName(u"questsMetadata")
-        sizePolicy.setHeightForWidth(self.questsMetadata.sizePolicy().hasHeightForWidth())
-        self.questsMetadata.setSizePolicy(sizePolicy)
-        self.questsMetadata.setMinimumSize(QSize(0, 0))
-        self.questsMetadata.setAutoFillBackground(False)
-        self.questsMetadata.setStyleSheet(u"QGroupBox {\n"
-"	border-style: none;\n"
-"}")
-        self.gridLayout = QGridLayout(self.questsMetadata)
-        self.gridLayout.setObjectName(u"gridLayout")
-        self.questsMetadataStackedWidget = QStackedWidget(self.questsMetadata)
+        self.questsMetadataStackedWidget = QStackedWidget(self.splitter)
         self.questsMetadataStackedWidget.setObjectName(u"questsMetadataStackedWidget")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Preferred)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.questsMetadataStackedWidget.sizePolicy().hasHeightForWidth())
-        self.questsMetadataStackedWidget.setSizePolicy(sizePolicy1)
+        sizePolicy.setHeightForWidth(self.questsMetadataStackedWidget.sizePolicy().hasHeightForWidth())
+        self.questsMetadataStackedWidget.setSizePolicy(sizePolicy)
         self.noGamesPage = QWidget()
         self.noGamesPage.setObjectName(u"noGamesPage")
-        self.verticalLayout_3 = QVBoxLayout(self.noGamesPage)
-        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        sizePolicy.setHeightForWidth(self.noGamesPage.sizePolicy().hasHeightForWidth())
+        self.noGamesPage.setSizePolicy(sizePolicy)
+        self.verticalLayout_11 = QVBoxLayout(self.noGamesPage)
+        self.verticalLayout_11.setObjectName(u"verticalLayout_11")
         self.noGamesLabel = QLabel(self.noGamesPage)
         self.noGamesLabel.setObjectName(u"noGamesLabel")
+        sizePolicy.setHeightForWidth(self.noGamesLabel.sizePolicy().hasHeightForWidth())
+        self.noGamesLabel.setSizePolicy(sizePolicy)
 
-        self.verticalLayout_3.addWidget(self.noGamesLabel)
+        self.verticalLayout_11.addWidget(self.noGamesLabel, 0, Qt.AlignmentFlag.AlignHCenter)
 
         self.questsMetadataStackedWidget.addWidget(self.noGamesPage)
-        self.page_2 = QWidget()
-        self.page_2.setObjectName(u"page_2")
-        sizePolicy1.setHeightForWidth(self.page_2.sizePolicy().hasHeightForWidth())
-        self.page_2.setSizePolicy(sizePolicy1)
-        self.verticalLayout_4 = QVBoxLayout(self.page_2)
-        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        self.horizontalLayout_2 = QHBoxLayout()
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.gameCoverImage = QLabel(self.page_2)
+        self.page = QWidget()
+        self.page.setObjectName(u"page")
+        sizePolicy.setHeightForWidth(self.page.sizePolicy().hasHeightForWidth())
+        self.page.setSizePolicy(sizePolicy)
+        self.verticalLayout_12 = QVBoxLayout(self.page)
+        self.verticalLayout_12.setObjectName(u"verticalLayout_12")
+        self.gameCoverImage = QLabel(self.page)
         self.gameCoverImage.setObjectName(u"gameCoverImage")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.gameCoverImage.sizePolicy().hasHeightForWidth())
-        self.gameCoverImage.setSizePolicy(sizePolicy2)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.gameCoverImage.sizePolicy().hasHeightForWidth())
+        self.gameCoverImage.setSizePolicy(sizePolicy1)
         self.gameCoverImage.setMinimumSize(QSize(0, 0))
         self.gameCoverImage.setMaximumSize(QSize(200, 300))
 
-        self.horizontalLayout_2.addWidget(self.gameCoverImage)
+        self.verticalLayout_12.addWidget(self.gameCoverImage, 0, Qt.AlignmentFlag.AlignHCenter)
 
+        self.gameTitle = QLabel(self.page)
+        self.gameTitle.setObjectName(u"gameTitle")
 
-        self.verticalLayout_4.addLayout(self.horizontalLayout_2)
+        self.verticalLayout_12.addWidget(self.gameTitle, 0, Qt.AlignmentFlag.AlignHCenter)
 
         self.verticalSpacer = QSpacerItem(20, 227, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
-        self.verticalLayout_4.addItem(self.verticalSpacer)
+        self.verticalLayout_12.addItem(self.verticalSpacer)
 
-        self.questsMetadataStackedWidget.addWidget(self.page_2)
-
-        self.gridLayout.addWidget(self.questsMetadataStackedWidget, 0, 0, 1, 1)
-
-        self.splitter.addWidget(self.questsMetadata)
+        self.questsMetadataStackedWidget.addWidget(self.page)
+        self.splitter.addWidget(self.questsMetadataStackedWidget)
 
         self.horizontalLayout.addWidget(self.splitter)
 
@@ -155,7 +141,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.questsMetadataStackedWidget.setCurrentIndex(1)
+        self.questsMetadataStackedWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -171,9 +157,9 @@ class Ui_MainWindow(object):
         self.actionExport_selected.setText(QCoreApplication.translate("MainWindow", u"Export selected...", None))
         self.actionAdd_Game.setText(QCoreApplication.translate("MainWindow", u"Add Game", None))
         self.actionExit.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
-        self.questsMetadata.setTitle("")
         self.noGamesLabel.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-style:italic;\">(no games)</span></p></body></html>", None))
         self.gameCoverImage.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">TextLabel</p></body></html>", None))
+        self.gameTitle.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-style:italic;\">TextLabel</span></p></body></html>", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.menuExport.setTitle(QCoreApplication.translate("MainWindow", u"Export...", None))
         self.menuEdit.setTitle(QCoreApplication.translate("MainWindow", u"Edit", None))

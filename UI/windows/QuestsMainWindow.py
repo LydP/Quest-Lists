@@ -23,6 +23,9 @@ class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
         # populate scrollArea with the games already in the database
         game_titles_icons = self.database.get_all_games()
 
+        window_width = self.width()
+        self.splitter.setSizes([(window_width * 2) // 3, window_width // 3])
+
         if not game_titles_icons:
             self.questsMetadataStackedWidget.setCurrentIndex(0)
         else:
@@ -43,6 +46,7 @@ class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
         self.generate_game_icon(title, image_path)
 
         # necessary for when adding a new game to empty database
+        self.gameCoverImage.setFixedSize(200, 300)
         self.questsMetadataStackedWidget.setCurrentIndex(1)
 
         self.populate_metadata(title, image_path)
@@ -68,8 +72,12 @@ class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
         # TODO need to test this when database has some stuff in it
         # TODO this is convoluted. clean it up
         # add game cover image to metadata panel
-        icon = QPixmap(image).scaled(self.gameCoverImage.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        icon = QPixmap(image).scaled(200, 300, Qt.KeepAspectRatio, Qt.SmoothTransformation)
         self.gameCoverImage.setPixmap(icon)
+        # add game title
+        self.gameTitle.setText(title)
+        self.gameTitle.setAlignment(Qt.AlignCenter)
+        self.gameTitle.setStyleSheet('font-style: italic')
 
         quest_counts = self.database.count_quests(title)
 
