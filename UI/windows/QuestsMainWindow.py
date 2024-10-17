@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QMainWindow, QApplication, QWidget, QToolButton, QLabel
+from PySide6.QtWidgets import QMainWindow, QApplication, QWidget, QToolButton, QLabel, QButtonGroup
 from PySide6.QtGui import QIcon, QPixmap, QAction
 from PySide6.QtCore import Qt, QSize
 
@@ -15,6 +15,10 @@ class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
         self.layout = FlowLayout(self.gameIconsScrollArea)
 
         self.database = DatabaseManager()
+
+        # add QToolButton icons to QButtonGroup so that only one can be checked at a time
+        self.icon_group = QButtonGroup()
+        self.icon_group.setExclusive(True)
 
         # define QActions
         self.actionAdd_Game.triggered.connect(self.action_add_game)
@@ -57,16 +61,29 @@ class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
         tool_button.setIconSize(QSize(100, 150))  # Set the icon size
         tool_button.setText(title)  # Set the label text
         tool_button.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)  # Text under the icon
-        tool_button.setObjectName(title)
+        tool_button.setObjectName(title) # set name so I can refer to it later
+        tool_button.setProperty('icon_path', image) # store the image path on the button
+        tool_button.setCheckable(True)
+
+        self.icon_group.addButton(tool_button)
+
+        tool_button.clicked.connect(self.game_icon_clicked)
 
         palette = QApplication.palette()
         highlight_color = palette.highlight().color().name()
 
         tool_button.setStyleSheet('QToolButton { border: none; background: transparent; }'
-                                  f'QToolButton:hover {{ background-color: {highlight_color}; }}')
+                                  f'QToolButton:hover, QToolButton:checked {{ background-color: {highlight_color}; }}')
 
         self.layout.setSpacing(tool_button.width() / 2)
         self.layout.addWidget(tool_button)
+
+    def game_icon_clicked(self):
+        current_game = self.sender()
+        current_icon = current_game.property('icon_path')
+        current_title = current_game.text()
+
+        self.populate_metadata(current_title, current_icon)
 
     def populate_metadata(self, title, image):
         # TODO need to test this when database has some stuff in it
