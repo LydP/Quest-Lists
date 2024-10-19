@@ -138,9 +138,26 @@ class DatabaseManager:
 
         return placeholder_title, placeholder_icon, primary_key
 
+    def rename_game(self, old_name, new_name):
+        """
+        Change the game_title for a specified game in the Games table.
+
+        :param old_name: The game's current name, as it exists in the database
+        :param new_name: The game's new name, as defined by the user
+        :return: None
+        """
+        self.query.prepare("""
+        UPDATE Games
+        SET game_title = :new_name
+        WHERE game_title = :old_name
+        """)
+        self.query.bindValue(':old_name', old_name)
+        self.query.bindValue(':new_name', new_name)
+        self.query.exec()
+
     def get_all_games(self):
         """
-        Queries the Games table for the game title, and the path to its cover image, and its primary key and places
+        Queries the Games table for the game title, the path to its cover image, and its primary key and places
         them in a list of tuples.
 
         :return: A list of tuples containing the game titles, the paths to game icon images, and the game primary keys:

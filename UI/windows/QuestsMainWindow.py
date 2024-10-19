@@ -1,5 +1,5 @@
-from PySide6.QtWidgets import QMainWindow, QApplication, QWidget, QToolButton, QLabel, QButtonGroup
-from PySide6.QtGui import QIcon, QPixmap, QAction
+from PySide6.QtWidgets import QMainWindow, QApplication, QWidget, QToolButton, QLabel, QButtonGroup, QLineEdit
+from PySide6.QtGui import QIcon, QPixmap
 from PySide6.QtCore import Qt, QSize
 
 from DatabaseManager import DatabaseManager
@@ -23,6 +23,7 @@ class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
         # define QActions
         self.actionAdd_Game.triggered.connect(self.action_add_game)
         self.actionExit.triggered.connect(self.quit_app)
+        self.actionRename.triggered.connect(self.action_rename_game)
 
         # populate scrollArea with the games already in the database
         game_titles_icons = self.database.get_all_games()
@@ -34,6 +35,7 @@ class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
             self.questsMetadataStackedWidget.setCurrentIndex(0)
         else:
             self.questsMetadataStackedWidget.setCurrentIndex(1)
+            self.renameGameLineEdit.hide()
             # add games to scrollArea
             for game in game_titles_icons:
                 self.generate_game_icon(game[0], game[1], game[2])
@@ -53,7 +55,31 @@ class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
         self.gameCoverImage.setFixedSize(200, 300)
         self.questsMetadataStackedWidget.setCurrentIndex(1)
 
+        # populate metadata with newest addition's data
         self.icon_group.buttons()[-1].click()
+
+    def action_rename_game(self):
+        self.gameTitle.hide()
+
+        self.renameGameLineEdit.setText(self.gameTitle.text())
+        self.renameGameLineEdit.show()
+        self.renameGameLineEdit.setFocus()
+
+        self.renameGameLineEdit.editingFinished.connect(self.name_edit)
+
+    def name_edit(self):
+        current_button = self.icon_group.checkedButton()
+
+        new_name = self.renameGameLineEdit.text()
+        old_name = current_button.text()
+
+        current_button.setText(new_name)
+        self.gameTitle.setText(new_name)
+
+        self.renameGameLineEdit.hide()
+        self.gameTitle.show()
+
+        self.database.rename_game(old_name, new_name)
 
     def generate_game_icon(self, title, image, game_id):
         tool_button = QToolButton(self)
@@ -61,13 +87,15 @@ class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
         tool_button.setIconSize(QSize(100, 150))  # Set the icon size
         tool_button.setText(title)  # Set the label text
         tool_button.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)  # Text under the icon
-        tool_button.setObjectName(title) # set name so I can refer to it later
-        tool_button.setProperty('icon_path', image) # store the image path on the button
+        tool_button.setObjectName(title)  # set name so I can refer to it later
+        tool_button.setProperty('icon_path', image)  # store the image path on the button
         tool_button.setCheckable(True)
 
+        # set button's ID in icon_group
         self.icon_group.addButton(tool_button)
         self.icon_group.setId(tool_button, game_id)
 
+        # click signals
         tool_button.clicked.connect(self.game_icon_clicked)
 
         palette = QApplication.palette()
@@ -77,6 +105,7 @@ class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
                                   f'QToolButton:hover, QToolButton:checked {{ background-color: {highlight_color}; }}')
 
         self.layout.setSpacing(tool_button.width() / 2)
+
         self.layout.addWidget(tool_button)
 
     def game_icon_clicked(self):

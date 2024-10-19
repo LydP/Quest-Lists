@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'QuestsMainWindoweWqPoV.ui'
+## Form generated from reading UI file 'QuestsMainWindowtBmXPX.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.8.0
+## Created by: Qt User Interface Compiler version 6.7.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -16,10 +16,10 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QIcon, QImage, QKeySequence, QLinearGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
-from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QMainWindow,
-    QMenu, QMenuBar, QScrollArea, QSizePolicy,
-    QSpacerItem, QSplitter, QStackedWidget, QStatusBar,
-    QToolBar, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QLineEdit,
+    QMainWindow, QMenu, QMenuBar, QScrollArea,
+    QSizePolicy, QSpacerItem, QSplitter, QStackedWidget,
+    QStatusBar, QToolBar, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -42,6 +42,8 @@ class Ui_MainWindow(object):
         self.actionAdd_Game.setObjectName(u"actionAdd_Game")
         self.actionExit = QAction(MainWindow)
         self.actionExit.setObjectName(u"actionExit")
+        self.actionRename = QAction(MainWindow)
+        self.actionRename.setObjectName(u"actionRename")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
@@ -80,13 +82,13 @@ class Ui_MainWindow(object):
         self.verticalLayout_11.addWidget(self.noGamesLabel, 0, Qt.AlignmentFlag.AlignHCenter)
 
         self.questsMetadataStackedWidget.addWidget(self.noGamesPage)
-        self.page = QWidget()
-        self.page.setObjectName(u"page")
-        sizePolicy.setHeightForWidth(self.page.sizePolicy().hasHeightForWidth())
-        self.page.setSizePolicy(sizePolicy)
-        self.verticalLayout_12 = QVBoxLayout(self.page)
+        self.metadataPage = QWidget()
+        self.metadataPage.setObjectName(u"metadataPage")
+        sizePolicy.setHeightForWidth(self.metadataPage.sizePolicy().hasHeightForWidth())
+        self.metadataPage.setSizePolicy(sizePolicy)
+        self.verticalLayout_12 = QVBoxLayout(self.metadataPage)
         self.verticalLayout_12.setObjectName(u"verticalLayout_12")
-        self.gameCoverImage = QLabel(self.page)
+        self.gameCoverImage = QLabel(self.metadataPage)
         self.gameCoverImage.setObjectName(u"gameCoverImage")
         sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy1.setHorizontalStretch(0)
@@ -98,16 +100,21 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_12.addWidget(self.gameCoverImage, 0, Qt.AlignmentFlag.AlignHCenter)
 
-        self.gameTitle = QLabel(self.page)
+        self.gameTitle = QLabel(self.metadataPage)
         self.gameTitle.setObjectName(u"gameTitle")
 
         self.verticalLayout_12.addWidget(self.gameTitle, 0, Qt.AlignmentFlag.AlignHCenter)
+
+        self.renameGameLineEdit = QLineEdit(self.metadataPage)
+        self.renameGameLineEdit.setObjectName(u"renameGameLineEdit")
+
+        self.verticalLayout_12.addWidget(self.renameGameLineEdit)
 
         self.verticalSpacer = QSpacerItem(20, 227, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.verticalLayout_12.addItem(self.verticalSpacer)
 
-        self.questsMetadataStackedWidget.addWidget(self.page)
+        self.questsMetadataStackedWidget.addWidget(self.metadataPage)
         self.splitter.addWidget(self.questsMetadataStackedWidget)
 
         self.horizontalLayout.addWidget(self.splitter)
@@ -137,11 +144,12 @@ class Ui_MainWindow(object):
         self.menuFile.addAction(self.actionExit)
         self.menuExport.addAction(self.actionExport_all)
         self.menuExport.addAction(self.actionExport_selected)
+        self.menuEdit.addAction(self.actionRename)
         self.toolBar.addAction(self.actionAdd_Game)
 
         self.retranslateUi(MainWindow)
 
-        self.questsMetadataStackedWidget.setCurrentIndex(0)
+        self.questsMetadataStackedWidget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -157,6 +165,7 @@ class Ui_MainWindow(object):
         self.actionExport_selected.setText(QCoreApplication.translate("MainWindow", u"Export selected...", None))
         self.actionAdd_Game.setText(QCoreApplication.translate("MainWindow", u"Add Game", None))
         self.actionExit.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
+        self.actionRename.setText(QCoreApplication.translate("MainWindow", u"Rename", None))
         self.noGamesLabel.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-style:italic;\">(no games)</span></p></body></html>", None))
         self.gameCoverImage.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">TextLabel</p></body></html>", None))
         self.gameTitle.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-style:italic;\">TextLabel</span></p></body></html>", None))
