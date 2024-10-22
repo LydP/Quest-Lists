@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'AddQuestsDialogeLizWh.ui'
+## Form generated from reading UI file 'AddQuestsDialogrzawEW.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.0
 ##
@@ -26,22 +26,22 @@ class Ui_Dialog(object):
         Dialog.resize(400, 300)
         self.verticalLayout = QVBoxLayout(Dialog)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.tableWidget = QTableWidget(Dialog)
-        if (self.tableWidget.columnCount() < 3):
-            self.tableWidget.setColumnCount(3)
+        self.AddQuestsTableWidget = QTableWidget(Dialog)
+        if (self.AddQuestsTableWidget.columnCount() < 3):
+            self.AddQuestsTableWidget.setColumnCount(3)
         __qtablewidgetitem = QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(0, __qtablewidgetitem)
+        self.AddQuestsTableWidget.setHorizontalHeaderItem(0, __qtablewidgetitem)
         __qtablewidgetitem1 = QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(1, __qtablewidgetitem1)
+        self.AddQuestsTableWidget.setHorizontalHeaderItem(1, __qtablewidgetitem1)
         __qtablewidgetitem2 = QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(2, __qtablewidgetitem2)
-        self.tableWidget.setObjectName(u"tableWidget")
-        self.tableWidget.setSizeAdjustPolicy(QAbstractScrollArea.SizeAdjustPolicy.AdjustToContentsOnFirstShow)
-        self.tableWidget.setColumnCount(3)
-        self.tableWidget.horizontalHeader().setVisible(True)
-        self.tableWidget.horizontalHeader().setCascadingSectionResizes(False)
+        self.AddQuestsTableWidget.setHorizontalHeaderItem(2, __qtablewidgetitem2)
+        self.AddQuestsTableWidget.setObjectName(u"AddQuestsTableWidget")
+        self.AddQuestsTableWidget.setSizeAdjustPolicy(QAbstractScrollArea.SizeAdjustPolicy.AdjustToContentsOnFirstShow)
+        self.AddQuestsTableWidget.setColumnCount(3)
+        self.AddQuestsTableWidget.horizontalHeader().setVisible(True)
+        self.AddQuestsTableWidget.horizontalHeader().setCascadingSectionResizes(False)
 
-        self.verticalLayout.addWidget(self.tableWidget)
+        self.verticalLayout.addWidget(self.AddQuestsTableWidget)
 
         self.buttonBox = QDialogButtonBox(Dialog)
         self.buttonBox.setObjectName(u"buttonBox")
@@ -60,11 +60,11 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"Dialog", None))
-        ___qtablewidgetitem = self.tableWidget.horizontalHeaderItem(0)
+        ___qtablewidgetitem = self.AddQuestsTableWidget.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("Dialog", u"Quest", None));
-        ___qtablewidgetitem1 = self.tableWidget.horizontalHeaderItem(1)
+        ___qtablewidgetitem1 = self.AddQuestsTableWidget.horizontalHeaderItem(1)
         ___qtablewidgetitem1.setText(QCoreApplication.translate("Dialog", u"Category", None));
-        ___qtablewidgetitem2 = self.tableWidget.horizontalHeaderItem(2)
+        ___qtablewidgetitem2 = self.AddQuestsTableWidget.horizontalHeaderItem(2)
         ___qtablewidgetitem2.setText(QCoreApplication.translate("Dialog", u"DLC", None));
     # retranslateUi
 

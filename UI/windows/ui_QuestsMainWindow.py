@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'QuestsMainWindowtBmXPX.ui'
+## Form generated from reading UI file 'QuestsMainWindowxJsTbP.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -26,14 +26,6 @@ class Ui_MainWindow(object):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(800, 600)
-        self.actionAdd_new_quest_list = QAction(MainWindow)
-        self.actionAdd_new_quest_list.setObjectName(u"actionAdd_new_quest_list")
-        self.actionDelete_selected_quest_list = QAction(MainWindow)
-        self.actionDelete_selected_quest_list.setObjectName(u"actionDelete_selected_quest_list")
-        self.actionAdd_new_quest_list_2 = QAction(MainWindow)
-        self.actionAdd_new_quest_list_2.setObjectName(u"actionAdd_new_quest_list_2")
-        self.actionDelete_selected_quest_list_2 = QAction(MainWindow)
-        self.actionDelete_selected_quest_list_2.setObjectName(u"actionDelete_selected_quest_list_2")
         self.actionExport_all = QAction(MainWindow)
         self.actionExport_all.setObjectName(u"actionExport_all")
         self.actionExport_selected = QAction(MainWindow)
@@ -44,6 +36,8 @@ class Ui_MainWindow(object):
         self.actionExit.setObjectName(u"actionExit")
         self.actionRename = QAction(MainWindow)
         self.actionRename.setObjectName(u"actionRename")
+        self.actionAdd_Quests = QAction(MainWindow)
+        self.actionAdd_Quests.setObjectName(u"actionAdd_Quests")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
@@ -145,7 +139,9 @@ class Ui_MainWindow(object):
         self.menuExport.addAction(self.actionExport_all)
         self.menuExport.addAction(self.actionExport_selected)
         self.menuEdit.addAction(self.actionRename)
+        self.menuEdit.addAction(self.actionAdd_Quests)
         self.toolBar.addAction(self.actionAdd_Game)
+        self.toolBar.addAction(self.actionAdd_Quests)
 
         self.retranslateUi(MainWindow)
 
@@ -157,15 +153,12 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.actionAdd_new_quest_list.setText(QCoreApplication.translate("MainWindow", u"Add new quest list", None))
-        self.actionDelete_selected_quest_list.setText(QCoreApplication.translate("MainWindow", u"Delete selected quest list", None))
-        self.actionAdd_new_quest_list_2.setText(QCoreApplication.translate("MainWindow", u"Add new quest list", None))
-        self.actionDelete_selected_quest_list_2.setText(QCoreApplication.translate("MainWindow", u"Delete selected quest list", None))
         self.actionExport_all.setText(QCoreApplication.translate("MainWindow", u"Export all...", None))
         self.actionExport_selected.setText(QCoreApplication.translate("MainWindow", u"Export selected...", None))
         self.actionAdd_Game.setText(QCoreApplication.translate("MainWindow", u"Add Game", None))
         self.actionExit.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
         self.actionRename.setText(QCoreApplication.translate("MainWindow", u"Rename", None))
+        self.actionAdd_Quests.setText(QCoreApplication.translate("MainWindow", u"Add Quests...", None))
         self.noGamesLabel.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-style:italic;\">(no games)</span></p></body></html>", None))
         self.gameCoverImage.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">TextLabel</p></body></html>", None))
         self.gameTitle.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-style:italic;\">TextLabel</span></p></body></html>", None))

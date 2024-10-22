@@ -5,6 +5,7 @@ from PySide6.QtCore import Qt, QSize
 from DatabaseManager import DatabaseManager
 from FlowLayout import FlowLayout
 from UI.windows.ui_QuestsMainWindow import Ui_MainWindow
+from UI.windows.AddQuestsDialog import AddQuestsDialog
 
 
 class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
@@ -24,6 +25,7 @@ class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
         self.actionAdd_Game.triggered.connect(self.action_add_game)
         self.actionExit.triggered.connect(self.quit_app)
         self.actionRename.triggered.connect(self.action_rename_game)
+        self.actionAdd_Quests.triggered.connect(self.action_add_quests)
 
         # populate scrollArea with the games already in the database
         game_titles_icons = self.database.get_all_games()
@@ -31,11 +33,13 @@ class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
         window_width = self.width()
         self.splitter.setSizes([(window_width * 2) // 3, window_width // 3])
 
+        self.renameGameLineEdit.hide()
+        self.renameGameLineEdit.setAlignment(Qt.AlignCenter)
+
         if not game_titles_icons:
             self.questsMetadataStackedWidget.setCurrentIndex(0)
         else:
             self.questsMetadataStackedWidget.setCurrentIndex(1)
-            self.renameGameLineEdit.hide()
             # add games to scrollArea
             for game in game_titles_icons:
                 self.generate_game_icon(game[0], game[1], game[2])
@@ -64,8 +68,14 @@ class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
         self.renameGameLineEdit.setText(self.gameTitle.text())
         self.renameGameLineEdit.show()
         self.renameGameLineEdit.setFocus()
+        self.renameGameLineEdit.selectAll()
 
         self.renameGameLineEdit.editingFinished.connect(self.name_edit)
+
+    def action_add_quests(self):
+        add_quests_dialog = AddQuestsDialog()
+        add_quests_dialog.exec()
+
 
     def name_edit(self):
         current_button = self.icon_group.checkedButton()
