@@ -9,6 +9,9 @@ class AddQuestsDialog(QDialog, Ui_Dialog):
         super().__init__()
         self.setupUi(self)
 
+        # hide row numbers
+        self.AddQuestsTableWidget.verticalHeader().setVisible(False)
+
         self.last_category = None
         self.last_dlc = None
 

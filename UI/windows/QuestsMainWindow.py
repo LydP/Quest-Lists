@@ -37,6 +37,7 @@ class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
         self.renameGameLineEdit.setAlignment(Qt.AlignCenter)
 
         if not game_titles_icons:
+            self.actionAdd_Quests.setEnabled(False)
             self.questsMetadataStackedWidget.setCurrentIndex(0)
         else:
             self.questsMetadataStackedWidget.setCurrentIndex(1)
@@ -62,6 +63,9 @@ class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
         # populate metadata with newest addition's data
         self.icon_group.buttons()[-1].click()
 
+        if not self.actionAdd_Quests.isEnabled():
+            self.actionAdd_Quests.setEnabled(True)
+
     def action_rename_game(self):
         self.gameTitle.hide()
 
@@ -75,7 +79,6 @@ class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
     def action_add_quests(self):
         add_quests_dialog = AddQuestsDialog()
         add_quests_dialog.exec()
-
 
     def name_edit(self):
         current_button = self.icon_group.checkedButton()
