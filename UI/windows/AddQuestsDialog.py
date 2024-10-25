@@ -18,28 +18,28 @@ class AddQuestsDialog(QDialog, Ui_Dialog):
         row_position = self.AddQuestsTableWidget.rowCount()
         self.AddQuestsTableWidget.insertRow(row_position)
 
+        # update defaults for Category and DLC and carry them over to the next new row
+        if row_position > 0:
+            last_row_index = row_position - 1
+            self.last_category = self.AddQuestsTableWidget.item(last_row_index, 1)
+            self.last_dlc = self.AddQuestsTableWidget.item(last_row_index, 2)
+
         if self.last_category:
             self.AddQuestsTableWidget.setItem(row_position, 1, QTableWidgetItem(self.last_category))
         if self.last_dlc:
             self.AddQuestsTableWidget.setItem(row_position, 2, QTableWidgetItem(self.last_dlc))
 
-        # assuming when an item is changed, it calls the update_defaults() method and passes the changed item to it
-        self.AddQuestsTableWidget.itemChanged.connect(self.update_defaults)
-
-    def update_defaults(self, item):
-        row = item.row()
-        if item.column() == 1:
-            self.last_category = item.text()
-        elif item.column() == 2:
-            self.last_dlc = item.text()
+        # when a new row is added, make it so user can immediately begin typing in newest Quests cell
+        self.AddQuestsTableWidget.setCurrentCell(row_position, 0)
+        self.AddQuestsTableWidget.setFocus()
 
     def keyPressEvent(self, event):
         # i think i need to inherit from QWidget for this to work, but I'll see
         # also the key stroke values aren't right, or aren't coming from the right class
-        if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
-            self.add_job_row()
+        if (event.key() == Qt.Key_Return) or (event.key() == Qt.Key_Enter):
+            self.add_quest_row()
         elif event.key() == Qt.Key_V and (event.modifiers() & Qt.ControlModifier):
-            self.handle_poaste_event()
+            self.handle_paste_event()
         else:
             super().keyPressEvent(event)
 
@@ -53,7 +53,7 @@ class AddQuestsDialog(QDialog, Ui_Dialog):
             columns = row_data.split('\t')
 
             if len(columns) >= 1:
-                row_position = self.AddQuestsTableWidget.rowCount()
+                row_position = self.AddQuestsTableWidget.rowCount() - 1
                 self.AddQuestsTableWidget.insertRow(row_position)
 
                 self.AddQuestsTableWidget.setItem(row_position, 0, QTableWidgetItem(columns[0]))
@@ -63,5 +63,3 @@ class AddQuestsDialog(QDialog, Ui_Dialog):
                 if len(columns) > 2:
                     self.AddQuestsTableWidget.setItem(row_position, 2, QTableWidgetItem(columns[2]))
                     self.last_dlc = columns[2]
-
-                self.AddQuestsTableWidget.itemChanged.connect(self.update_defaults)
