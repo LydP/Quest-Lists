@@ -6,19 +6,18 @@ class DatabaseManager:
     def __init__(self):
         self.database = QtSql.QSqlDatabase.addDatabase('QSQLITE')
         self.database.setDatabaseName('database/quest_lists_data.sqlite3')
-        self.database.setConnectOptions('QSQLITE_ENABLE_REGEXP') # enable the use of regex
+        self.database.setConnectOptions('QSQLITE_ENABLE_REGEXP')  # enable the use of regex
 
         self.database.open()
 
         self.query = QtSql.QSqlQuery()
 
     def count_quests(self, title):
-        # TODO need to test this when database has some stuff in it
         """
         Creates a nested dictionary that organizes quest categories and their corresponding total number of quests
         and number of completed quests for a specified game and its DLCs.
 
-        :param title: the game's title as a string
+        :param title: the game's title
         :return: A dictionary of the form
         {Game:
             {Category:
@@ -31,6 +30,7 @@ class DatabaseManager:
         }
         """
         # query database for quest categories, any DLCs associated with the game, and the number of quests per category
+        # TODO need to rewrite this query given database modifications
         self.query.prepare("""
         SELECT
             qc.category_name,
@@ -100,7 +100,7 @@ class DatabaseManager:
                 WHEN SUBSTR(game_title, LENGTH(:game_title) + 2) = '' THEN 0
                 ELSE CAST(SUBSTR(game_title, LENGTH(:game_title) + 2) AS INTEGER)                
             END
-        FROM Games
+        FROM Game
         WHERE game_title REGEXP :game_title || '(\s[0-9]+)?$'
         """)
         self.query.bindValue(':game_title', placeholder_title)
@@ -127,7 +127,7 @@ class DatabaseManager:
 
         # add placeholder_title and placeholder_icon to Games table
         self.query.prepare("""
-        INSERT INTO Games (game_title, game_cover_path)
+        INSERT INTO Game (game_title, game_cover_path)
         VALUES (:game_title, :game_icon)
         """)
         self.query.bindValue(':game_title', placeholder_title)
@@ -147,7 +147,7 @@ class DatabaseManager:
         :return: None
         """
         self.query.prepare("""
-        UPDATE Games
+        UPDATE Game
         SET game_title = :new_name
         WHERE game_title = :old_name
         """)
@@ -165,10 +165,10 @@ class DatabaseManager:
         """
         self.query.prepare("""
         SELECT 
-            game_ID,
+            game_id,
             game_title,
             game_cover_path
-        FROM Games
+        FROM Game
         ORDER BY game_title       
         """)
         self.query.exec()
