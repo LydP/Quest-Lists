@@ -5,15 +5,24 @@ from UI.windows.ui_AddQuestsDialog import Ui_Dialog
 
 
 class AddQuestsDialog(QDialog, Ui_Dialog):
-    def __init__(self):
+    def __init__(self, game_id, game_title, database):
         super().__init__()
         self.setupUi(self)
+
+        self.game_id = game_id
+        self.database = database
+
+        self.gameTitle.setText(f'Adding quests for "{game_title}"')
+        self.gameTitle.setAlignment(Qt.AlignCenter)
+        self.gameTitle.setStyleSheet('font-style: italic')
 
         # hide row numbers
         self.AddQuestsTableWidget.verticalHeader().setVisible(False)
 
         self.last_category = None
         self.last_dlc = None
+
+        self.buttonBox.accepted.connect(self.save)
 
         self.add_quest_row()
 
@@ -66,3 +75,22 @@ class AddQuestsDialog(QDialog, Ui_Dialog):
                 if len(columns) > 2:
                     self.AddQuestsTableWidget.setItem(row_position, 2, QTableWidgetItem(columns[2]))
                     self.last_dlc = columns[2]
+
+    def save(self):
+        rows = self.AddQuestsTableWidget.rowCount()
+        columns = self.AddQuestsTableWidget.columnCount()
+
+        table_data = []
+        for row in range(rows):
+            row_data = []
+            for column in range(columns):
+                item = self.AddQuestsTableWidget.item(row, column)
+
+                # make Nones and '' None
+                item = item.text() if item and item.text() else None
+
+                row_data.append(item)
+
+            table_data.append(row_data)
+
+        self.database.add_quests(self.game_id, table_data)

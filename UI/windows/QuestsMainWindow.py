@@ -77,7 +77,10 @@ class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
         self.renameGameLineEdit.editingFinished.connect(self.name_edit)
 
     def action_add_quests(self):
-        add_quests_dialog = AddQuestsDialog()
+        game_title = self.icon_group.checkedButton().text()
+        game_id = self.icon_group.checkedId()
+
+        add_quests_dialog = AddQuestsDialog(game_id, game_title, self.database)
         add_quests_dialog.exec()
 
     def name_edit(self):

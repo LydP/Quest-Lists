@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'AddQuestsDialogrzawEW.ui'
+## Form generated from reading UI file 'AddQuestsDialoggRfOsd.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.8.0
+## Created by: Qt User Interface Compiler version 6.7.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -16,8 +16,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractButton, QAbstractScrollArea, QApplication, QDialog,
-    QDialogButtonBox, QHeaderView, QSizePolicy, QTableWidget,
-    QTableWidgetItem, QVBoxLayout, QWidget)
+    QDialogButtonBox, QHeaderView, QLabel, QSizePolicy,
+    QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -26,6 +26,11 @@ class Ui_Dialog(object):
         Dialog.resize(400, 300)
         self.verticalLayout = QVBoxLayout(Dialog)
         self.verticalLayout.setObjectName(u"verticalLayout")
+        self.gameTitle = QLabel(Dialog)
+        self.gameTitle.setObjectName(u"gameTitle")
+
+        self.verticalLayout.addWidget(self.gameTitle)
+
         self.AddQuestsTableWidget = QTableWidget(Dialog)
         if (self.AddQuestsTableWidget.columnCount() < 3):
             self.AddQuestsTableWidget.setColumnCount(3)
@@ -60,6 +65,7 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"Dialog", None))
+        self.gameTitle.setText(QCoreApplication.translate("Dialog", u"TextLabel", None))
         ___qtablewidgetitem = self.AddQuestsTableWidget.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("Dialog", u"Quest", None));
         ___qtablewidgetitem1 = self.AddQuestsTableWidget.horizontalHeaderItem(1)

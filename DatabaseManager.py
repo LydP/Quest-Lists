@@ -100,7 +100,7 @@ class DatabaseManager:
                 WHEN SUBSTR(game_title, LENGTH(:game_title) + 2) = '' THEN 0
                 ELSE CAST(SUBSTR(game_title, LENGTH(:game_title) + 2) AS INTEGER)                
             END
-        FROM Game
+        FROM game
         WHERE game_title REGEXP :game_title || '(\s[0-9]+)?$'
         """)
         self.query.bindValue(':game_title', placeholder_title)
@@ -127,14 +127,23 @@ class DatabaseManager:
 
         # add placeholder_title and placeholder_icon to Games table
         self.query.prepare("""
-        INSERT INTO Game (game_title, game_cover_path)
+        INSERT INTO game (game_title, game_cover_path)
         VALUES (:game_title, :game_icon)
         """)
         self.query.bindValue(':game_title', placeholder_title)
         self.query.bindValue(':game_icon', placeholder_icon)
         self.query.exec()
 
+        # update new game's parent_id
         primary_key = self.query.lastInsertId()
+        self.query.prepare("""
+        UPDATE game
+        SET parent_id = :parent_id
+        WHERE game_title = :game_title
+        """)
+        self.query.bindValue(':parent_id', primary_key)
+        self.query.bindValue(':game_title', placeholder_title)
+        self.query.exec()
 
         return placeholder_title, placeholder_icon, primary_key
 
@@ -147,7 +156,7 @@ class DatabaseManager:
         :return: None
         """
         self.query.prepare("""
-        UPDATE Game
+        UPDATE game
         SET game_title = :new_name
         WHERE game_title = :old_name
         """)
@@ -158,7 +167,7 @@ class DatabaseManager:
     def get_all_games(self):
         """
         Queries the Games table for the game title, the path to its cover image, and its primary key and places
-        them in a list of tuples.
+        them in a list of tuples. Ignores DLCs.
 
         :return: A list of tuples containing the game titles, the paths to game icon images, and the game primary keys:
         [('Game Title', '/path/to/cover.jpg', game_id)]
@@ -168,7 +177,8 @@ class DatabaseManager:
             game_id,
             game_title,
             game_cover_path
-        FROM Game
+        FROM game
+        WHERE game_id = parent_id
         ORDER BY game_title       
         """)
         self.query.exec()
@@ -178,6 +188,87 @@ class DatabaseManager:
             games_icons.append((self.query.value(1), self.query.value(2), self.query.value(0)))
 
         return games_icons
+
+    def add_quests(self, game_id, quest_data):
+        """
+        Saves quests, DLCs, and quest categories to the quest, game, and quest_category tables, respectively.
+
+        :param game_id: The primary key from the game table to which these quests will be associated.
+        :param quest_data: A list of lists, where each sublist is of the form [quest, category, game]. Quest is the name
+        of the quest, category is the quest's category (e.g. main, side) and game is the game's title or a title of one
+        its DLCs.
+        :return: None
+        """
+        dlc_query = QtSql.QSqlQuery()
+        category_query = QtSql.QSqlQuery()
+        dlc_key_query = QtSql.QSqlQuery()
+        category_key_query = QtSql.QSqlQuery()
+
+        # save DLC query
+        dlc_query.prepare("""
+        INSERT OR IGNORE INTO game (game_title, parent_id)
+        VALUES (:dlc, :parent_id)
+        """)
+
+        # save quest category query
+        category_query.prepare("""
+        INSERT OR IGNORE INTO quest_category (category_name)
+        VALUES (:category)
+        """)
+
+        # save quest query
+        self.query.prepare("""
+        INSERT INTO quest (quest_name, game_id, category_id, completion_state)
+        VALUES (:quest_name, :game_id, :category_id, 0)
+        """)
+
+        # get proper primary key from game table
+        dlc_key_query.prepare("""
+        SELECT 
+            game_id
+        FROM game
+        WHERE game_title = :game_title
+            AND parent_id = :game_id
+        """)
+
+        # get proper primary key from category table
+        category_key_query.prepare("""
+        SELECT
+            category_id
+        FROM quest_category
+        WHERE category_name = :category
+        """)
+
+        # update tables
+        for datum in quest_data:
+            quest, category, dlc = datum
+
+            category_query.bindValue(':category', category)
+            category_query.exec()
+
+            dlc_query.bindValue(':dlc', dlc)
+            dlc_query.bindValue(':parent_id', game_id)
+            dlc_query.exec()
+
+            if dlc:
+                dlc_key_query.bindValue(':game_title', dlc)
+                dlc_key_query.bindValue(':game_id', game_id)
+                dlc_key_query.exec()
+                while dlc_key_query.next():
+                    dlc_key = dlc_key_query.value(0)
+            else:
+                dlc_key = game_id
+
+            category_key_query.bindValue(':category', category)
+            category_key_query.exec()
+            while category_key_query.next():
+                category_key = category_key_query.value(0)
+
+            self.query.bindValue(':quest_name', quest)
+            self.query.bindValue(':game_id', dlc_key)
+            self.query.bindValue(':category_id', category_key)
+
+            self.query.exec()
 
     def close_database(self):
         """
