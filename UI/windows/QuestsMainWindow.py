@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QMainWindow, QApplication, QWidget, QToolButton, QLabel, QButtonGroup, QLineEdit
+from PySide6.QtWidgets import QMainWindow, QApplication, QWidget, QToolButton, QLabel, QButtonGroup, QLineEdit, QMenu
 from PySide6.QtGui import QIcon, QPixmap
 from PySide6.QtCore import Qt, QSize
 
@@ -26,6 +26,11 @@ class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
         self.actionExit.triggered.connect(self.quit_app)
         self.actionRename.triggered.connect(self.action_rename_game)
         self.actionAdd_Quests.triggered.connect(self.action_add_quests)
+
+        # context menu
+        self.game_icon_context_menu = QMenu(self)
+        self.game_icon_context_menu.addAction(self.actionRename)
+        self.game_icon_context_menu.addAction(self.actionAdd_Quests)
 
         # populate scrollArea with the games already in the database
         game_titles_icons = self.database.get_all_games()
@@ -113,6 +118,8 @@ class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
 
         # click signals
         tool_button.clicked.connect(self.game_icon_clicked)
+        tool_button.setContextMenuPolicy(Qt.CustomContextMenu)
+        tool_button.customContextMenuRequested.connect(self.game_icon_right_clicked)
 
         palette = QApplication.palette()
         highlight_color = palette.highlight().color().name()
@@ -130,6 +137,17 @@ class QuestsMainWindow(QMainWindow, Ui_MainWindow, QWidget):
         current_title = current_game.text()
 
         self.populate_metadata(current_title, current_icon)
+
+    def game_icon_right_clicked(self, pos):
+        current_game = self.sender()
+        current_icon = current_game.property('icon_path')
+        current_title = current_game.text()
+
+        current_game.setChecked(True)
+
+        self.populate_metadata(current_title, current_icon)
+
+        self.game_icon_context_menu.exec(current_game.mapToGlobal(pos))
 
     def populate_metadata(self, title, image):
         # TODO need to test this when database has some stuff in it
